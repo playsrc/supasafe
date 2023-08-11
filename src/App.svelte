@@ -1,29 +1,33 @@
 <script lang="ts">
-  import Counter from './lib/Counter.svelte'
+  import Counter from "./lib/Counter.svelte";
 
-  import { onMount } from 'svelte'
-  import { supabase } from './supabaseClient'
-  import type { AuthSession } from '@supabase/supabase-js'
-  import Account from './lib/Account.svelte'
-  import Auth from './lib/Auth.svelte'
+  import { onMount } from "svelte";
+  import { supabase } from "./supabaseClient";
+  import type { AuthSession } from "@supabase/supabase-js";
+  import Account from "./lib/Account.svelte";
+  import Auth from "./lib/Auth.svelte";
+  import Board from "./lib/Board.svelte";
+  import Header from "./lib/Header.svelte";
 
-  let session: AuthSession
+  let session: AuthSession;
 
   onMount(() => {
     supabase.auth.getSession().then(({ data }) => {
-      session = data.session
-    })
+      session = data.session;
+    });
 
     supabase.auth.onAuthStateChange((_event, _session) => {
-      session = _session
-    })
-  })
+      session = _session;
+    });
+  });
 </script>
 
 <div class="container" style="padding: 50px 0 100px 0">
-  {#if !session}
+  <Header {session} />
+  <Board />
+  <!-- {#if !session}
   <Auth/>
   {:else}
   <Account {session} />
-  {/if}
+  {/if} -->
 </div>
