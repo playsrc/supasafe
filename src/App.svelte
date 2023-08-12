@@ -1,13 +1,14 @@
 <script lang="ts">
-  import Counter from "./lib/Counter.svelte";
+  import { Route, Router } from "svelte-routing";
+  export const url = "/";
 
-  import { onMount } from "svelte";
-  import { supabase } from "./supabaseClient";
   import type { AuthSession } from "@supabase/supabase-js";
-  import Account from "./lib/Account.svelte";
+  import { onMount } from "svelte";
   import Auth from "./lib/Auth.svelte";
   import Board from "./lib/Board.svelte";
+  import Footer from "./lib/Footer.svelte";
   import Header from "./lib/Header.svelte";
+  import { supabase } from "./supabaseClient";
 
   let session: AuthSession;
 
@@ -22,12 +23,15 @@
   });
 </script>
 
-<div class="container" style="padding: 50px 0 100px 0">
-  <Header {session} />
-  <Board />
-  <!-- {#if !session}
-  <Auth/>
-  {:else}
-  <Account {session} />
-  {/if} -->
-</div>
+<Router>
+  <Route path="/">
+    <div class="container" style="padding: 50px 0 100px 0">
+      <Header {session} />
+      <Board />
+      <Footer {session} />
+    </div>
+  </Route>
+  <Route path="/auth">
+    <Auth />
+  </Route>
+</Router>
