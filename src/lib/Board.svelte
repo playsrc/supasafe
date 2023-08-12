@@ -32,17 +32,15 @@
         .eq("user_id", user.id)
         .single();
 
-      if (status === 406) {
+      if (error && status !== 406) throw error;
+
+      if (!data) {
         const { error } = await supabase
           .from("lists")
           .insert({ user_id: user.id });
 
         if (error) throw error;
-      }
-
-      if (error && status !== 406) throw error;
-
-      if (data) {
+      } else {
         cause = data.cause;
         effect = data.effect;
         solutions = data.solutions;
