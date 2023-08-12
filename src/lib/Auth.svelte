@@ -1,13 +1,19 @@
 <script lang="ts">
   import { supabase } from "../supabaseClient";
+  import HCaptcha from "svelte-hcaptcha";
 
   let loading = false;
   let email = "";
+  let captchaToken = "";
+  let captcha = null;
 
   const handleLogin = async () => {
     try {
       loading = true;
-      const { error } = await supabase.auth.signInWithOtp({ email });
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: { captchaToken },
+      });
       if (error) throw error;
       alert("Check your email for login link!");
     } catch (error) {
@@ -16,8 +22,18 @@
       }
     } finally {
       loading = false;
+      captcha.reset();
     }
   };
+
+  function handleSuccess(event) {
+    captchaToken = event.detail.token;
+  }
+
+  function handleError(error) {
+    captcha.reset();
+    console.log("ERROR", error);
+  }
 </script>
 
 <div class="container row flex-center flex">
@@ -33,8 +49,16 @@
           type="email"
           placeholder="Your email"
           bind:value={email}
+          required
         />
       </div>
+      <HCaptcha
+        sitekey={import.meta.env.VITE_CAPTCHA_SITE_KEY}
+        theme="dark"
+        on:success={handleSuccess}
+        on:error={handleError}
+        bind:this={captcha}
+      />
       <div>
         <button
           type="submit"
