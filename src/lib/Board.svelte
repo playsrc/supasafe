@@ -73,13 +73,16 @@
       const { user } = session;
       const { data, error } = await supabase
         .from("lists")
-        .upsert({
-          user_id: user.id,
-          cause,
-          effect,
-          solutions,
-          updated_at: new Date().toISOString(),
-        })
+        .upsert(
+          {
+            user_id: user.id,
+            cause,
+            effect,
+            solutions,
+            updated_at: new Date().toISOString(),
+          },
+          { onConflict: "user_id" }
+        )
         .eq("user_id", user.id)
         .select("updated_at");
 
