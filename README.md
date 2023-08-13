@@ -1,47 +1,32 @@
-# Svelte + TS + Vite
+# Supasafe
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+The web app that helps you identify what's important when something happens.
 
-## Recommended IDE Setup
+![Supasafe Screenshot](.github/screenshot.png)
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+## About
 
-## Need an official Svelte framework?
+I've built this app for the Supabase Launch Week 8 Hackathon. It uses the following techs:
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+- Svelte for the UI
+- Tailwind for styling
+- Supabase as DB and auth
+- Resend for the auth SMTP
+- hCaptcha to prevent spam
 
-## Technical considerations
+Try it yourself at https://supasafe.mateus.zip and let me know what do you think!
 
-**Why use this over SvelteKit?**
+> **Warning**
+> This README is incomplete, I'm going to update it with steps and instructions on how to build the app
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
+## Demonstration
 
-This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+<video src=".github/demo.mp4" controls title="Demonstration"></video>
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+## Development
 
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
+Contributions are welcome! Please create an [Issue](https://github.com/mateusabelli/supasafe/issues) or [Pull Request](https://github.com/mateusabelli/supasafe/pulls) if you encounter any problems or have suggestions for improvement.
 
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
+## License
 
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `allowJs` in the TS template?**
-
-While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```ts
-// store.ts
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
-```
+Supabase is licensed under the terms of the **MIT** license. See [LICENSE.md](./LICENSE.md)
