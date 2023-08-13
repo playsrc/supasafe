@@ -21,7 +21,7 @@ Try it yourself at https://supasafe.mateus.zip and let me know what do you think
 
 ## Demonstration
 
-<video src=".github/demo.mp4" controls title="Demonstration"></video>
+https://github.com/mateusabelli/supasafe/assets/43862225/e3864b7b-7a12-4b25-8296-2e0c43c9ba66
 
 ## Development
 
