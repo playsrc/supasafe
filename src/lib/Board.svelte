@@ -34,13 +34,7 @@
 
       if (error && status !== 406) throw error;
 
-      if (!data) {
-        const { error } = await supabase
-          .from("lists")
-          .insert({ user_id: user.id });
-
-        if (error) throw error;
-      } else {
+      if (data) {
         cause = data.cause;
         effect = data.effect;
         solutions = data.solutions;
@@ -79,7 +73,8 @@
       const { user } = session;
       const { data, error } = await supabase
         .from("lists")
-        .update({
+        .upsert({
+          user_id: user.id,
           cause,
           effect,
           solutions,
@@ -90,6 +85,7 @@
 
       const { updated_at } = data[0];
       updatedAt = updated_at;
+
       if (error) throw error;
     } catch (error) {
       if (error instanceof Error) {
@@ -158,8 +154,8 @@
     {:else}
       <p>
         Last save at:
-        <time datetime={updatedAt}>
-          {new Date(updatedAt).toLocaleString()}
+        <time datetime={updatedAt ?? ""}>
+          {updatedAt ? new Date(updatedAt).toLocaleString() : "never"}
         </time>
       </p>
     {/if}
